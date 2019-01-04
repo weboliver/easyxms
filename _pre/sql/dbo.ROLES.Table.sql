@@ -1,0 +1,27 @@
+USE [easyxms]
+GO
+
+/****** Object:  Table [dbo].[ROLES]    Script Date: 28.06.2016 16:11:16 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[ROLES](
+	[ROLE_ID] [int] NOT NULL,
+	[ROLE_NAME] [nvarchar](100) NULL,
+	[ROLE_CREATED_BY] [int] NULL,
+	[ROLE_CHANGED_BY] [int] NULL,
+	[ROLE_DELETED_BY] [int] NULL,
+	[ROLE_CREATED] [datetime] NULL,
+	[ROLE_CHANGED] [datetime] NULL,
+	[ROLE_DELETED] [datetime] NULL
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[ROLES] ADD  CONSTRAINT [DF_ROLES_TYPE_CREATED]  DEFAULT (getdate()) FOR [ROLE_CREATED]
+GO
+
+
