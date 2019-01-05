@@ -25,6 +25,7 @@ I added only the necessary parts of MXUnit for testing purposes.
 
 Create a mapping to the EasyXMS Project Name if you want to use MXUnit Tests (most likely easyxms).
 Set ORM in Lucee Administrator to "update" and Lucee will create the necessary tables and fields. 
+Set this.install=true in Application.cfc
 
 # MXUnit
 
