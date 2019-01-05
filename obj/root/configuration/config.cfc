@@ -22,7 +22,7 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 		"404" = "~/templates/errorpages/_404.cfm",
 		"403" = "~/templates/errorpages/_403.cfm",
 		"500" = "~/templates/errorpages/_500.cfm",
-		show404 = true
+		"show404" = true
 	};
 
 	structappend(settings, customsettings, true);

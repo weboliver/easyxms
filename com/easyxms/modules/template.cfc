@@ -23,6 +23,10 @@
 		<cfreturn strctStandardElements>
 	</cffunction>
 
+	<cffunction name="getTemplatePlaceHolder" returntype="string">
+		<cfreturn "~t">
+	</cffunction>
+
 	<cffunction name="includetemplate" returntype="string">
 		<cfset var sResult = "">
 		<cfargument name="template" type="string">
@@ -43,23 +47,23 @@
 		<cfset $EasyCharset = $EasyConfig.getcharset()>
 		<cfset var artemplates = $EasyConfig.getJavascript().head>
 		<cfloop array="#artemplates#" index="template">
-			<cfsavecontent variable="$EasyJavascriptHeader"><cfoutput>#$EasyJavascriptHeader#</cfoutput><cfinclude template="#replace(template, '~t', $EasyConfig.getSetting("templates"))#"></cfsavecontent>
+			<cfsavecontent variable="$EasyJavascriptHeader"><cfoutput>#$EasyJavascriptHeader#</cfoutput><cfinclude template="#replace(template, getTemplatePlaceHolder(), $EasyConfig.getSetting("templates"))#"></cfsavecontent>
 		</cfloop>
 		<cfset artemplates = $EasyConfig.getJavascript().foot>
 		<cfloop array="#artemplates#" index="template">
-			<cfsavecontent variable="$EasyJavascriptFooter"><cfoutput>#$EasyJavascriptFooter#</cfoutput><cfinclude template="#replace(template, '~t', $EasyConfig.getSetting("templates"))#"></cfsavecontent>
+			<cfsavecontent variable="$EasyJavascriptFooter"><cfoutput>#$EasyJavascriptFooter#</cfoutput><cfinclude template="#replace(template, getTemplatePlaceHolder(), $EasyConfig.getSetting("templates"))#"></cfsavecontent>
 		</cfloop>
 		<cfset template = $EasyConfig.getMetaInformation()>
-		<cfsavecontent variable="$EasyMetaInformation"><cfinclude template="#replace(template, '~t', $EasyConfig.getSetting("templates"))#"></cfsavecontent>
+		<cfsavecontent variable="$EasyMetaInformation"><cfinclude template="#replace(template, getTemplatePlaceHolder(), $EasyConfig.getSetting("templates"))#"></cfsavecontent>
 
 		<cfset artemplates = $EasyConfig.getStyleSheets().head>
 		<cfloop array="#artemplates#" index="template">
-			<cfsavecontent variable="$EasyStyleSheetHeader"><cfoutput>#$EasyStyleSheetHeader#</cfoutput><cfinclude template="#replace(template, '~t', $EasyConfig.getSetting("templates"))#"></cfsavecontent>
+			<cfsavecontent variable="$EasyStyleSheetHeader"><cfoutput>#$EasyStyleSheetHeader#</cfoutput><cfinclude template="#replace(template, getTemplatePlaceHolder(), $EasyConfig.getSetting("templates"))#"></cfsavecontent>
 		</cfloop>
 
 		<cfset artemplates = $EasyConfig.getStyleSheets().foot>
 		<cfloop array="#artemplates#" index="template">
-			<cfsavecontent variable="$EasyStyleSheetFooter"><cfoutput>#$EasyStyleSheetFooter#</cfoutput><cfinclude template="#replace(template, '~t', $EasyConfig.getSetting("templates"))#"></cfsavecontent>
+			<cfsavecontent variable="$EasyStyleSheetFooter"><cfoutput>#$EasyStyleSheetFooter#</cfoutput><cfinclude template="#replace(template, getTemplatePlaceHolder(), $EasyConfig.getSetting("templates"))#"></cfsavecontent>
 		</cfloop>
 
 		<cfset $EasyDocLang =  $EasyConfig.getLang()>

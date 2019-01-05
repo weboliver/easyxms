@@ -1,2 +1,0 @@
-Install ColdBox 4.1 and place it under root of Version. Add a mapping in Lucee.
-Although ColdBox isnt needed yet. I wonder if ..

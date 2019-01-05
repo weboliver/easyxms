@@ -122,7 +122,7 @@ component output="false" displayname="easyXMS System" extends="base" {
     public boolean function testReRoute(string scriptname=cgi.script_name) {
 
         var config = getConfig(scriptname);
-        var initPrm = config.getInitParm();
+        var initPrm = config.getInitParameter();
         var initPass = config.getInitRoute();
 
         if (structKeyExists(url, initPrm) and url[initPrm] is initPass)
@@ -134,8 +134,8 @@ component output="false" displayname="easyXMS System" extends="base" {
     public boolean function testReInit(string scriptname=cgi.script_name) {
 
         var config = getConfig(scriptname);
-        var initPrm = config.getInitParm();
-        var initPass = config.getInitPass();
+        var initPrm = config.getInitParameter();
+        var initPass = config.getInitPassWord();
         if (structKeyExists(url, initPrm) and url[initPrm] is initPass)
             return true;
         else

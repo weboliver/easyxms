@@ -3,6 +3,8 @@
  *
  * @author Oliver
  * @date 08.04.16
+ * 
+ * This Component loads Plugins from a Plugin Folder into EasyXMS
  **/
 component accessors=true output=false persistent=false extends="com.easyxms.services.pluginsloader" {
 

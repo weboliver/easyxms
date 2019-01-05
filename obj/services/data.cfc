@@ -1,11 +1,5 @@
 /**
- * tables
- *
- * @author Oliver
- * @date 22.04.16
- **/
-/**
- * general Table Component
+ * general Data Component
  *
  * @author Oliver
  * @date 22.04.16
