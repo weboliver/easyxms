@@ -12,8 +12,7 @@ It will use following technologies:
 - angularjs (Angie)
 - Lucee Server
 - IIS 7.5 and above Webserver
-- Microsoft SQL Server
-- Windows 2008 (2012 and abobe Server)
+- A SQL Database (Oracle, MySQL, MSSQL) with ORM
 
 The Datasource is called: easyxms. 
 Directory _pre contains recent sql Table Scripts (obsolete) ORM will create tables on MySQL.
