@@ -17,13 +17,15 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 		"initparameter" = 'init',
 		"initpassword" = 'now',
 		"initroute" = "routes",
-		"starttemplate" = '~/index.cfm',
+		"starttemplate" = '~v/index.cfm',
 		"views" = '/com/easyxms/views',
 		"templates" = '/com/easyxms/views/templates',
-		"404" = '~/templates/errorpages/_404.cfm',
-		"403" = '~/templates/errorpages/_403.cfm',
-		"500" = '~/templates/errorpages/_500.cfm',
-		show404 = false
+		"404" = '~v/templates/errorpages/_404.cfm',
+		"403" = '~v/templates/errorpages/_403.cfm',
+		"500" = '~v/templates/errorpages/_500.cfm',
+		"show404" = false,
+		"templateparameter" = "~t",
+		"viewparameter" = "~v",
 	};
 
 
@@ -75,6 +77,14 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 
 	string function getModelName() {
 		return model.name;
+	}
+
+	string function getTemplatePlaceHolder() {
+		return getsettings().templateparameter;
+	}
+
+	string function getViewPlaceHolder() {
+		return getsettings().viewparameter;
 	}
 
     public string function getInitParameter() {

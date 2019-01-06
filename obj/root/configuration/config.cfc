@@ -18,10 +18,10 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 	customsettings = {
 		views = "",
 		templates = "/templates",
-		starttemplate = "~/index.cfm",
-		"404" = "~/templates/errorpages/_404.cfm",
-		"403" = "~/templates/errorpages/_403.cfm",
-		"500" = "~/templates/errorpages/_500.cfm",
+		starttemplate = "~v/index.cfm",
+		"404" = "~v/templates/errorpages/_404.cfm",
+		"403" = "~v/templates/errorpages/_403.cfm",
+		"500" = "~v/templates/errorpages/_500.cfm",
 		"show404" = true
 	};
 

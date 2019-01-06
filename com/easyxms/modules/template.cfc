@@ -24,13 +24,17 @@
 	</cffunction>
 
 	<cffunction name="getTemplatePlaceHolder" returntype="string">
-		<cfreturn "~t">
+		<cfreturn $EasyConfig.getTemplatePlaceHolder()>
+	</cffunction>
+
+	<cffunction name="getViewPlaceHolder" returntype="string">
+		<cfreturn $EasyConfig.getViewPlaceHolder()>
 	</cffunction>
 
 	<cffunction name="includetemplate" returntype="string">
-		<cfset var sResult = "">
 		<cfargument name="template" type="string">
-		<cfset template = replace(template, "~", $EasyConfig.getSetting("views"))>
+		<cfset var sResult = "">
+		<cfset template = replace(template, $EasyConfig.getviewPlaceHolder(), $EasyConfig.getSetting("views"))>
 		<cfset $EasyModel = getModel()>
 		<cfsavecontent variable="sResult"><cfinclude template="#template#"></cfsavecontent>
 		<cfif find("<@", sResult)>
@@ -39,7 +43,7 @@
 		<cfreturn eval(sResult)>
 	</cffunction>
 
-	<!--- Function returns Standard Elements. You can query the Standard Elements by invoking the fuunction getStandardElements --->
+	<!--- Function returns Standard Elements. You can query the Standard Elements by invoking the function getStandardElements --->
 	<cffunction name="getPlaceHolders" access="public">
 		<cfset var sResult = "">
 		<cfset var template = "">

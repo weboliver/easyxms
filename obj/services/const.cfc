@@ -10,7 +10,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.serv
 
 		setVar("Application_Name", "EasyXMS Rest Sample");
 		setVar("Application_DataSource", "EasyXMS");
-		setVar("Application_DataType", "MSSQL");
+		setVar("Application_DataType", "MySQL");
 
 		return this;
 	}

@@ -53,11 +53,11 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			initwith="init"
 		},
 		"DB" = {
-			object="obj.services.mssql",
+			object="obj.services.db",
 			init=true,
 			initwith="init",
 			objects = {
-
+				"easyxms"="MYSQL"
 			}
 		},
 		"PLUGINS" = {
@@ -67,7 +67,6 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			objects = {
 				"pluginsfolder" = "/obj/plugins"
 			}
-
 		},
 		/* Must be last Object*/
 		"Installer" = {

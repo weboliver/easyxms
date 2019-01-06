@@ -92,7 +92,7 @@ component output="false" displayname="easyXMS Basic Function" extends="simple"  
 			return arguments.defaultvalue;
 	}
 
-		boolean function existsVariable(string name){
+	boolean function existsVariable(string name){
 		return structKeyExists(LocalScope, name);
 	}
 
