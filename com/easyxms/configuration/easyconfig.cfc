@@ -8,12 +8,11 @@
 
 component output="false" displayname="Configuration Loader" accessors="true"  {
 
-	path = expandpath(".");
+	Easypath = expandpath(".");
 
 	routes = "com.easyxms.services.routes";
 
 	settings = {
-
 		"initparameter" = 'init',
 		"initpassword" = 'now',
 		"initroute" = "routes",
@@ -185,7 +184,7 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 		return variables;
 	}
 
-	function getpath() {
-		path = expandpath(getcurrentTemplatePath());
+	function getEasyPath() {
+		Easypath = expandpath(getcurrentTemplatePath());
 	}
 }

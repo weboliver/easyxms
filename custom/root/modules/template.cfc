@@ -19,7 +19,7 @@ component extends="com.easyxms.modules.template" accessors=true output=false per
 	[
 		{
 			name="NavigationObject",
-			object="obj.services.navigation",
+			object="custom.services.navigation",
 			functions = [
 					"prepareNavigationforLeftNav",
 					"prepareNavigationforTopNav",

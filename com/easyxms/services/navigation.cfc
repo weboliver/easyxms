@@ -1,11 +1,20 @@
-component output="false" displayname="Basic Navigation" accessors="true"  {
+component output="false" displayname="Basic Navigation" accessors="true" extends="com.easyxms.application.base" {
 
-	function init() {
-		return this;
-	};
+	query function prepareNavigationforLeftNav() {
 
-	query function getNavigation() {
 		return queryNew("name", "link");
-	};
 
+	}
+
+	query function prepareNavigationforTopNav() {
+
+		return queryNew("name", "link");
+
+	}
+
+	query function prepareLogo() {
+
+		return queryNew("name", "link");
+
+	}
 }

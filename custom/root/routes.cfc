@@ -9,28 +9,22 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 	$EasyCustomRoutes = {
 		"/index.cfm" =	{
 				"name" = "Homepage",
-				"config" = "obj.root.configuration.homepage.config",
+				"config" = "custom.root.configuration.homepage.config",
 				"path" = "/index.cfm"
 			},
 		"/news/index.cfm" =	{
 				"name" = "News",
-				"config" = "obj.root.configuration.news.config",
+				"config" = "custom.root.configuration.news.config",
 				"path" = "/news/index.cfm"
 			},
 		"/admin/" =	{
 				"contains" = "/admin/",
 				"name" = "Administration",
-				"config" = "obj.root.configuration.admin.config",
-				"path" = ""
-			},
-		"/_tests/" =	{
-				"contains" = "/_tests/",
-				"name" = "Test",
-				"config" = "_tests.obj.root.configuration.config",
+				"config" = "custom.root.configuration.admin.config",
 				"path" = ""
 			},
 		"*" =	{
-				"component" = "obj.services.urls",
+				"component" = "custom.services.urls",
 				"name" = "",
 				"config" = "",
 				"path" = ""
@@ -43,17 +37,17 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 	$EasyServices =
 	{
 		"NavigationObject" = {
-			object="obj.services.navigation",
+			object="com.easyxms.services.navigation",
 			init=true,
 			initwith=""
 		},
 		"GlobalConst" = {
-			object="obj.services.const",
+			object="com.easyxms.services.const",
 			init=true,
 			initwith="init"
 		},
 		"DB" = {
-			object="obj.services.db",
+			object="com.easyxms.services.db",
 			init=true,
 			initwith="init",
 			objects = {
@@ -61,7 +55,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			}
 		},
 		"PLUGINS" = {
-			object= "obj.services.pluginsloader",
+			object= "com.easyxms.services.pluginsloader",
 			init = true,
 			initwith = "init",
 			objects = {
@@ -70,7 +64,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 		},
 		/* Must be last Object*/
 		"Installer" = {
-			object="obj.services.installer",
+			object="com.easyxms.services.installer",
 			init=true,
 			initwith="init"
 		}

@@ -13,10 +13,10 @@ component accessors=true output=true persistent=false extends="com.easyxms.appli
 	this.compression = true;
 	this.defaultroutes = 'com.easyxms.routes';
 	/* This is Custom */
-	this.customroutes = "obj.root.routes";
+	this.customroutes = "custom.root.routes";
 	this.datasource = "easyxms";
 	this.ormenabled = true;
 	this.debug = true;
 	this.install = false;
-	this.ormSettings = {cfclocation="#expandPath('/obj/root/orm/easyxms')#", dialect="MYSQL"};
+	this.ormSettings = {cfclocation="#expandPath('/com/easyxms/orm/')#", dialect="MYSQL"};
 }
