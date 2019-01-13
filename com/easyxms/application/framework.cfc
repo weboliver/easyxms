@@ -10,11 +10,10 @@ component accessors=false output=true persistent=false {
 		createobject("com.easyxms.application.easyinit").init(this);
 	}
 
-	function onRequestStart() {
+	function onRequestStart(string script_name=cgi.SCRIPT_NAME) {
 
 		var strctForm = {};
 		var strctUrl = {};
-		var script_name = cgi.SCRIPT_NAME;
 
 		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(script_name)) {
 			onApplicationStart();
@@ -35,7 +34,6 @@ component accessors=false output=true persistent=false {
 		if (left(script_name, 5) neq "/rest")
 		{
 			writeoutput(Application.EasyXMS.runRequest(script_name, strctUrl, strctForm));
-			abort;
 		}
 		else
 		{

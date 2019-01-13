@@ -12,15 +12,16 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 				"config" = "custom.root.configuration.homepage.config",
 				"path" = "/index.cfm"
 			},
-		"/news/index.cfm" =	{
-				"name" = "News",
-				"config" = "custom.root.configuration.news.config",
-				"path" = "/news/index.cfm"
-			},
 		"/admin/" =	{
-				"contains" = "/admin/",
+				"contains" = "/admin",
 				"name" = "Administration",
-				"config" = "custom.root.configuration.admin.config",
+				"config" = "com.easyxms.configuration.admin.config",
+				"path" = "/index.cfm"
+			},
+		"/_tests/" =	{
+				"contains" = "/_tests",
+				"name" = "Tests",
+				"config" = "custom.root.configuration.homepage.config",
 				"path" = ""
 			},
 		"*" =	{
@@ -59,7 +60,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			init = true,
 			initwith = "init",
 			objects = {
-				"pluginsfolder" = "/obj/plugins"
+				"pluginsfolder" = "/custom/plugins"
 			}
 		},
 		/* Must be last Object*/

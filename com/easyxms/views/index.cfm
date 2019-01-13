@@ -8,6 +8,6 @@
 	<@$EasyStyleSheetFooter@>
 </head>
 <body>
-	Homepage
+	Default Page
 </body>
 </html>

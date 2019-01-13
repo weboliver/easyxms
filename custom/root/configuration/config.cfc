@@ -17,8 +17,8 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 
 	// set views to empty or "/" if you want to display the Site from root of the Server
 	customsettings = {
-		views = "/",
-		templates = "/custom/views/templates/",
+		views = "/custom/root/views/",
+		templates = "/custom/root/views/templates/",
 		starttemplate = "~v/index.cfm",
 		"404" = "~v/templates/errorpages/_404.cfm",
 		"403" = "~v/templates/errorpages/_403.cfm",
@@ -46,14 +46,14 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 
 	// These settings will always overwritten by their inheritors
 	template = {
-		name = "custom.root.modules.home"
+		name = "custom.root.modules.homepage.home"
 	};
 
 	controller = {
-		name = "custom.root.controller.home"
+		name = "custom.root.controller.homepage.home"
 	};
 
 	model = {
-		name = "custom.root.model.home"
+		name = "custom.root.model.homepage.home"
 	};
 }

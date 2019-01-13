@@ -4,7 +4,7 @@
  * @author Oliver
  * @date 17.11.15
  **/
-component accessors=true output=true persistent=false extends="com.easyxms.application.framework" {
+component accessors=true output=true persistent=false extends="custom.root.easyxms" {
 
 	this.name = "EasyXMS_version_002";
 	this.sessionManagement = true;

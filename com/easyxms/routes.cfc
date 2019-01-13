@@ -13,11 +13,6 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 				config = "com.easyxms.configuration.easyadminconfig",
 				path = "/admin/index.cfm"
 			},
-		"/admin/lucee/index.cfm" =	{
-				name = "administration",
-				config = "com.easyxms.configuration.easyadminconfig",
-				path = "/admin/lucee/index.cfm"
-			},
 		"default" = {
 				name = "default",
 				config = "com.easyxms.configuration.easyconfig",

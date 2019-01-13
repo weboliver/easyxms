@@ -8,10 +8,6 @@
 
 component output="false" displayname="Configuration Loader" accessors="true" extends="easyconfig" {
 
-	customsettings = {
-		views = ''
-	};
-
 	structappend(settings, customsettings, true);
 
 	routes = "com.easyxms.services.routes";
