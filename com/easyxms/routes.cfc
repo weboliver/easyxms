@@ -8,7 +8,11 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 
 	$EasyRoutes =
 	{
-
+		"default" = {
+				name = "default",
+				config = "com.easyxms.configuration.easyconfig",
+				path = "default"
+			}
 	};
 
 	$EasyPersistent =

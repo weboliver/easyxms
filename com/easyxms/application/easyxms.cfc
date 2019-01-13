@@ -33,7 +33,7 @@ component output="false" displayname="easyXMS System" extends="base" {
 
     	}
 	}
-	
+
 	public function setInstall(boolean bInstall) {
 		_EasyInstall = bInstall;
 	}
@@ -88,15 +88,15 @@ component output="false" displayname="easyXMS System" extends="base" {
     	return _EasyRoutes;
     }
 
-    public boolean function existsRoute(string scriptname=cgi.script_name) {
+    public boolean function existsRoute(string scriptname) {
     	return getRouter().existsRoute(scriptname);
     }
 
-    public any function getRouteConfiguration(string scriptname=cgi.script_name) {
+    public any function getRouteConfiguration(string scriptname) {
     	return getRouter().getConfig(scriptname);
     }
 
-    public any function getConfig(string scriptname=cgi.script_name) {
+    public any function getConfig(string scriptname) {
 
 		if (existsRoute(scriptname))
 			return getRouteConfiguration(scriptname);
@@ -109,23 +109,23 @@ component output="false" displayname="easyXMS System" extends="base" {
     	return 	createObject(getConfig(scriptname).getControllerName());
     }
 
-	public any function getTemplate(string scriptname=cgi.script_name) {
+	public any function getTemplate(string scriptname) {
 
     	return 	createObject(getConfig(scriptname).getTemplateName(scriptname));
     }
 
-    public any function getModel(string scriptname=cgi.script_name) {
+    public any function getModel(string scriptname) {
 
     	return 	createObject(getConfig(scriptname).getModelName());
     }
 
-    public boolean function testReRoute(string scriptname=cgi.script_name) {
+    public boolean function testReRoute(string scriptname) {
 
         return testReInit(scriptname);
             return false;
     }
 
-    public boolean function testReInit(string scriptname=cgi.script_name) {
+    public boolean function testReInit(string scriptname) {
 
         var config = getConfig(scriptname);
         var initPrm = config.getInitParameter();
