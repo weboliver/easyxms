@@ -10,16 +10,32 @@ component output="false" displayname="" extends="com.easyxms.configuration.easya
 
 	// set views to empty or "/" if you want to display the Site from root of the Server
 	customsettings = {
-		views = "/com/easyxms/views/admin",
+		views = "/com/easyxms/views/pages",
 		templates = "/com/easyxms/views/templates",
-		starttemplate = "~v/index.cfm",
-		"404" = "~v/templates/errorpages/_404.cfm",
-		"403" = "~v/templates/errorpages/_403.cfm",
-		"500" = "~v/templates/errorpages/_500.cfm",
-		"show404" = true
+		starttemplate = "index.cfm",
+		"404" = "~v/errorpages/_404.cfm",
+		"403" = "~v/errorpages/_403.cfm",
+		"500" = "~v/errorpages/_500.cfm",
+		"show404" = false
 	};
 
 	structappend(settings, customsettings, true);
+
+	javascript = {
+		head = ["~t/parts/headers/javascript/standard.cfm"],
+		foot = []
+	};
+
+	metainformation = {
+		value = "~t/parts/headers/metadata/standard.cfm",
+		lang = "de",
+		charset="utf-8"
+	};
+
+	stylesheets = {
+		head = ["~t/parts/headers/stylesheets/standard.cfm"],
+		foot = []
+	};
 
 	template = {
 		name = "com.easyxms.modules.admin.admin"

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+       <head>
+             <!--- Erwzingen des EDGE Modus im IE --->
+             <meta http-equiv="X-UA-Compatible" content="EDGE"/>
+             <meta charset="utf-8" />
+             <title>Screen-Shot to Javascript</title>
+             <script>
+                    
+                    function findAttributeByValue(attribute, value)    {
+                      var allElements = document.getElementsByTagName('textarea');
+                      for (var i = 0; i < allElements.length; i++)       {
+                        if (allElements[i].getAttribute(attribute) == value) { return allElements[i]; }
+                      }
+                    }
+                    
+                    function toDataUrl(url, callback){
+                        var xhr = new XMLHttpRequest();
+                        xhr.responseType = 'blob';
+                        xhr.onload = function() {
+                          var reader  = new FileReader();
+                          reader.onloadend = function () {
+                              callback(reader.result);
+                          }
+                          reader.readAsDataURL(xhr.response);
+                        };
+                        xhr.open('GET', url);
+                        xhr.send();
+                    }
+                    
+                    function toDataUrl(url, callback, outputFormat){
+                        var img = new Image();
+                        img.crossOrigin = 'Anonymous';
+                        img.onload = function(){
+                            var canvas = document.createElement('CANVAS');
+                            var ctx = canvas.getContext('2d');
+                            var dataURL;
+                            canvas.height = this.height;
+                            canvas.width = this.width;
+                            ctx.drawImage(this, 0, 0);
+                            dataURL = canvas.toDataURL(outputFormat);
+                            callback(dataURL);
+                            canvas = null; 
+                        };
+                        img.src = url;
+                    }
+
+                    
+                    function ClipBoard_Class(scrnDummy, canvas_id, autoresize) {
+                        var _self = this;
+                        var ctrl_pressed = false;
+                        var reading_dom = false;
+                        var text_top = 15;
+                        var pasteCatcher;
+                        var paste_mode;
+                           var hiddenTextField;
+                           
+                           // Do nothing on not found;
+                        if (scrnDummy == "undefined") return;
+                    
+                        var canvas = document.createElement("canvas");
+                        var CanvasparentNode = scrnDummy.parentNode;
+                        
+                        canvas.setAttribute("id", canvas_id);
+                        canvas.setAttribute("contenteditable", "");
+                        canvas.style.width = scrnDummy.clientWidth;
+                        canvas.style.height = scrnDummy.clientHeight;
+                        canvas.style.cssText = scrnDummy.style.cssText;
+                        canvas.style.border = "CDCDCD";
+                        
+                        CanvasparentNode.appendChild(canvas);
+                        
+                        scrnDummy.style.cssText = scrnDummy.style.cssText; //+ ";display:none";
+                                  
+						var ctx = document.getElementById(canvas_id).getContext("2d");
+						var newDivItem = "paste_ff"+"_"+canvas_id;
+						var newTextItem = scrnDummy.getAttribute("id");
+                           
+                           
+                           
+                        //handlers
+                        document.addEventListener('keydown', function (e) {
+                            _self.on_keyboard_action(e);
+                        }, false); //firefox and IE 11 fix
+                        document.addEventListener('keyup', function (e) {
+                            _self.on_keyboardup_action(e);
+                        }, false); //firefox and IE 11 fix
+                        document.addEventListener('paste', function (e) {
+                            _self.paste_auto(e);
+                        }, false); //official paste handler
+                    
+                        //constructor - prepare
+                        _self.init = function () {
+                            //if using auto
+                            if (window.Clipboard)
+                                return true;
+                    
+                            pasteCatcher = document.createElement("div");
+                            pasteCatcher.setAttribute("id", newDivItem);
+                            pasteCatcher.setAttribute("contenteditable", "");
+                            pasteCatcher.style.cssText = 'opacity:0;position:fixed;top:0px;left:0px;';
+                            pasteCatcher.style.marginLeft = "-20px";
+                            pasteCatcher.style.width = "10px";
+                            document.body.appendChild(pasteCatcher);
+                            document.getElementById(newDivItem).addEventListener('DOMSubtreeModified', function () {
+                                if (paste_mode == 'auto' || ctrl_pressed == false)
+                                    return true;
+                                //if paste handle failed - capture pasted object manually
+                                if (pasteCatcher.children.length == 1) {
+                                    if (pasteCatcher.firstElementChild.src != undefined) {
+                                        //image
+                                        _self.paste_createImage(pasteCatcher.firstElementChild.src);
+                                                      _self.paste_createHiddenTextObject(pasteCatcher.firstElementChild.src);
+                                    }
+                                }
+                                //register cleanup after some time.
+                                setTimeout(function () {
+                                    pasteCatcher.innerHTML = '';
+                                }, 20);
+                            }, false);
+                        }();
+                           
+                        //default paste action
+                        _self.paste_auto = function (e) {
+                            paste_mode = '';
+                            pasteCatcher.innerHTML = '';
+                            var plain_text_used = false;
+                            if (e.clipboardData) {
+                                var items = e.clipboardData.items;
+                                if (items) {
+                                    paste_mode = 'auto';
+                                    //access data directly
+                                    for (var i = 0; i < items.length; i++) {
+                                        if (items[i].type.indexOf("image") !== -1) {
+                                            //image
+                                            var blob = items[i].getAsFile();
+                                            var URLObj = window.URL || window.webkitURL;
+                                            var source = URLObj.createObjectURL(blob);
+                                            _self.paste_createImage(source);
+                                            var dataURL = canvas.toDataURL("image/png");
+                                            _self.paste_createHiddenTextObject(dataURL);
+                                        }
+                                    }
+                                }
+                                else {
+                                	setTimeout(function(){
+                                    	pasteCatcher.focus();	
+                                    }, 10);
+                                    //wait for DOMSubtreeModified event
+                                    //https://bugzilla.mozilla.org/show_bug.cgi?id=891247
+                                }
+                            }
+                        };
+                           
+                        //on keyboard press - 
+                        _self.on_keyboard_action = function (event) {
+                            k = event.keyCode;
+                            //ctrlkey
+                            if (k == 17 || event.metaKey || event.ctrlKey) {
+                                if (ctrl_pressed == false)
+                                    ctrl_pressed = true;
+                            }
+                            //c
+                            if (k == 86) {
+                                if (document.activeElement != undefined && (document.activeElement.type == 'text' || document.activeElement.type == 'textarea')) {
+                                    //let user paste into some input
+                                    return false;
+                                }
+                    
+                                if (ctrl_pressed == true && !window.Clipboard) {
+                                    pasteCatcher.setAttribute("contenteditable", "");
+                                    pasteCatcher.focus();	
+                                	
+                                }
+                            }
+                        };
+                           
+                        //on keybord release
+                        _self.on_keyboardup_action = function (event) {
+                            k = event.keyCode;
+                            //ctrlkey
+                            if (k == 17 || event.metaKey || event.ctrlKey || event.key == 'Meta')
+                                ctrl_pressed = false;
+                        };
+                           
+                        //draw image
+                        _self.paste_createImage = function (source) {
+                            var pastedImage = new Image();
+                            pastedImage.onload = function () {
+                                if(autoresize == true){
+                                    //resize canvas
+                                    canvas.width = pastedImage.width;
+                                    canvas.height = pastedImage.height;
+                                }
+                                else{
+                                    //clear canvas
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                }
+                                ctx.drawImage(pastedImage, 0, 0);
+                            };
+                            pastedImage.src = source;
+                        };
+                           
+                           _self.paste_createHiddenTextObject = function(source){
+                           
+                                  var hiddenTextField = document.getElementById(newTextItem);
+                                  if (!hiddenTextField) {
+                                        var hiddenTextField = document.createElement("input");
+                                        hiddenTextField.setAttribute("type", "text");
+                                        hiddenTextField.setAttribute("name", newTextItem);
+                                        hiddenTextField.setAttribute("id", newTextItem);
+                                        hiddenTextField.setAttribute("style", "width:400px;height:500px;display:block");
+                                        document.body.appendChild(hiddenTextField); 
+                                  }
+                                  hiddenTextField.value = source;
+                           };
+                           
+                    };
+
+                    
+                    function addScreenshotElement() { 
+                           var scrnDummy = findAttributeByValue("originalid", "V1_I1_T6");
+                           ClipBoard = new ClipBoard_Class(scrnDummy, "scrncanvas", true);
+                           
+                           console.log(scrnDummy);    
+                    }
+                    
+                    
+                    window.setTimeout(function(){addScreenshotElement()}, 500);
+             </script>
+       </head>
+       <body>
+             
+       
+       <div class="title">Arbeitsplatz: Support Anfrage</div>
+       
+       <table style="width:600px">
+             <tr>
+                    <td style="width:200px">Auftraggeber</td>
+                    <td style="width:400px"><input type="text" style="width:400px" name="fld_auftraggeber" id="fld_auftraggeber"></td>
+             </tr>
+             <tr>
+                    <td>Störung</td>
+                    <td><input type="checkbox" name="fld_stoerung" id="fld_stoerung"> (Liegt nur dann vor, wenn der angebotene Service unterbrochen ist)</td>
+             </tr>
+             <tr>
+                    <td>Titel</td>
+                    <td><input type="text" style="width:400px" name="fld_titel" id="fld_titel"></td>
+             </tr>
+             <tr>
+                    <td>Beschreibung</td>
+                    <td><textarea name="" style="width:400px;height:200px" name="fld_descr" id="fld_descr"></textarea></td>
+             </tr>
+             <tr>
+                    <td style="width:200px">Weitere Mitarbeiter</td>
+                    <td style="width:400px"><input type="text" style="width:400px" name="fld_mita" id="fld_mita"></td>
+             </tr>
+             <tr>
+                    <td colspan="width:200px">Screenshot einfügen</td>
+                    <td style="width:400px">
+                           <textarea tabindex="0" style="width:300px;height:300px" width="300" height="300" title="" class="n_nod6F3jRji2nHqxQ_0 a8_nod6F3jRji2nHqxQ_0 a5_nod6F3jRji2nHqxQ_0" id="ctl00_ctl39_g_0a61a18f_e6a6_48f7_a931_06c90fa7ab0e_FormControl0_V1_I1_T6" style="white-space: pre; position: relative; resize: none;" rows="5" originalid="V1_I1_T6" autocomplete="off" viewdatanode="7" formid="ctl00_ctl39_g_0a61a18f_e6a6_48f7_a931_06c90fa7ab0e_FormControl0" scriptclass="TextBox" direction="ltr" wrapped="true"></textarea>     
+                           <!--- <canvas id="my_canvas" width="300" height="300"  originalid="V1_I1_T4"></canvas><br/> --->
+                    </td>
+             </tr>
+             <tr>
+                    <td style="width:200px"></td>
+                    <td style="width:400px"><input id="addticketbtn" type="button" style="width:120px" value="Ticket erstellen"><input type="button" style="width:120px" value="Abbrechen"></td>
+             </tr>
+             
+       </table>
+
+       </body>
+</html>

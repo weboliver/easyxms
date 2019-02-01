@@ -19,8 +19,13 @@ component output="false" displayname="easyXMS System" extends="base" {
         _EasyPersistence = getRouter().getPersistentObjects();
 		_EasyServices = {};
 		_EasyInstall = false;
+		_EasyRequest = createObject("com.easyxms.application.request");
         return this;
-    }
+	}
+	
+	any public function createRequest() {
+		return duplicate(_EasyRequest);
+	};
 
     public function setServices() {
     	var SingletonName = "";
@@ -104,19 +109,19 @@ component output="false" displayname="easyXMS System" extends="base" {
         	return getRouteConfiguration("default");
     }
 
-    public any function getController(string scriptname=cgi.script_name) {
+    public any function getController(any oConfig, string scriptname) {
 
-    	return 	createObject(getConfig(scriptname).getControllerName());
+    	return 	createObject(oConfig.getControllerName());
     }
 
-	public any function getTemplate(string scriptname) {
+	public any function getTemplate(any oConfig, string scriptname) {
 
-    	return 	createObject(getConfig(scriptname).getTemplateName(scriptname));
+    	return 	createObject(oConfig.getTemplateName(scriptname));
     }
 
-    public any function getModel(string scriptname) {
+    public any function getModel(any oConfig, string scriptname) {
 
-    	return 	createObject(getConfig(scriptname).getModelName());
+    	return 	createObject(oConfig.getModelName());
     }
 
     public boolean function testReRoute(string scriptname) {
@@ -136,43 +141,33 @@ component output="false" displayname="easyXMS System" extends="base" {
             return false;
     }
 
-	public string function runRequest(string scriptname=cgi.script_name, struct param = {}, struct frm = {}) {
-		var oController = getController(scriptname);
-		var oModel = getModel(scriptname);
+	public string function runRequest(string scriptname, struct param = {}, struct frm = {}) {
+		var oRequest = createRequest();
+		var oConfig = getConfig(scriptname);
+		var oController = getController(oConfig, scriptname);
+		var oModel = getModel(oConfig, scriptname);
 		var sResult = "";
-		oModel.setVar("__param", param);
-		oModel.setVar("__frm", frm);
-		oController.setModel(oModel);
-		var Events = getconfig(scriptname).getevents();
-		for (var e in Events) {
-			evaluate("oController.#e#()");
-		}
-		var sFolder = getconfig(scriptname).getsetting("views");
-		var sFile = sFolder & scriptname;
-		var oTemplate = getTemplate(scriptname);
-		oTemplate.setModel(oModel);
-		oTemplate.setController(oController);
-		if (fileExists(expandpath(sFile)))
-			sResult = oTemplate.includetemplate(sFile);
-		else if (getconfig(scriptname).getsetting("show404"))
-			sResult = oTemplate.includetemplate(getConfig(scriptname).get404Template());
-		else
-			sResult = oTemplate.includetemplate(getConfig(scriptname).getstartTemplate());
-
-		return sResult;
+		oRequest.setConfig(oConfig);
+		oRequest.setController(oController);
+		oRequest.setModel(oModel);
+		var oTemplate = getTemplate(oConfig, scriptname);
+		oRequest.setTemplate(oTemplate);
+		oRequest.runRequest(scriptname, param, frm);
+		return oRequest.getResult();
 	}
 
-	public function runRestRequest(string scriptname=cgi.script_name, struct param = {}, struct frm = {}) {
-		var oController = getController(scriptname);
-		var oModel = getModel(scriptname);
+	public function runRestRequest(string scriptname, struct param = {}, struct frm = {}) {
+		var oRequest = createRequest();
+		var oConfig = getConfig(scriptname);
+		var oController = getController(oConfig, scriptname);
+		var oModel = getModel(oConfig, scriptname);
 		var sResult = "";
-		oModel.setVar("__param", param);
-		oModel.setVar("__frm", frm);
+		oRequest.setConfig(oConfig);
+		oRequest.setController(oController);
+		oRequest.setModel(oModel);
 		oController.setModel(oModel);
-		var Events = getconfig(scriptname).getevents();
-		for (var e in Events) {
-			evaluate("oController.#e#()");
-		}
+		oRequest.runRequest(scriptname, param, frm);
+		Request.$EasyRequest = oRequest;
 	}
 
 	public function endRequest() {

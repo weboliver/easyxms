@@ -10,8 +10,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 	{
 		"default" = {
 				name = "default",
-				config = "com.easyxms.configuration.easyconfig",
-				path = "default"
+				config = "com.easyxms.configuration.easyconfig"
 			}
 	};
 
@@ -39,14 +38,6 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 		return $EasyRoutes;
 	}
 
-	boolean function existsRoute(string script_name) {
-		return structKeyExists($EasyRoutes, script_name);
-	}
-
-	any function getConfig(string script_name) {
-		return createobject($EasyRoutes[script_name].config);
-	}
-
 	struct function getPersistentObjects() {
 
 		return $EasyServices;
@@ -57,35 +48,34 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 		return $EasyServices;
 	}
 
-	numeric function existsRoute(string script_name) {
+	any function getConfig(string scriptname) {
 
-		if (structKeyExists($EasyRoutes, script_name))
+		if (structKeyExists($EasyRoutes, scriptname))
+			return createobject($EasyRoutes[scriptname].config);
+
+		var arrayF = StructFindKey($EasyRoutes, "CONTAINS", "all");
+		if (ArrayLen(arrayF))
+			for (var strctItem in arrayF) {
+				if (findnocase(strctItem.owner.contains, scriptname))
+				{
+					return createobject(strctItem.owner.config);
+				}
+			}
+	}
+
+	numeric function existsRoute(string scriptname) {
+		if (structKeyExists($EasyRoutes, scriptname))
 			return true;
 		var arrayF = StructFindKey($EasyRoutes, "CONTAINS", "all");
 		if (ArrayLen(arrayF))
 			for (var strctItem in arrayF) {
-				if (findnocase(strctItem.owner.contains, script_name))
+				if (findnocase(strctItem.owner.contains, scriptname))
 				{
 						return true;
 				}
 			}
 
 		return false;
-	}
-
-	any function getConfig(string script_name) {
-
-		if (structKeyExists($EasyRoutes, script_name))
-			return createobject($EasyRoutes[script_name].config);
-
-		var arrayF = StructFindKey($EasyRoutes, "CONTAINS", "all");
-		if (ArrayLen(arrayF))
-			for (var strctItem in arrayF) {
-				if (findnocase(strctItem.owner.contains, script_name))
-				{
-						return createobject(strctItem.owner.config);
-				}
-			}
 	}
 
 }

@@ -10,20 +10,11 @@ component accessors=false output=true persistent=false {
 		createobject("com.easyxms.application.easyinit").init(this);
 	}
 
-	function onRequestStart(string script_name=cgi.SCRIPT_NAME) {
+	function onRequestStart() {
 
 		var strctForm = {};
 		var strctUrl = {};
-
-		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(script_name)) {
-			onApplicationStart();
-		}
-
-        lock scope="Application" throwontimeout="true" timeout="30" type="readonly" {
-
-			if (Application.EasyXMS.testReRoute(script_name))
-				Application.EasyXMS.setRoutes(this);
-        }
+		var scriptname = cgi.script_name;
 
 		if (isdefined("Form"))
 			strctForm = Form;
@@ -31,13 +22,35 @@ component accessors=false output=true persistent=false {
 		if (isdefined("Url"))
 			strctUrl = Url;
 
-		if (left(script_name, 5) neq "/rest")
+		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(script_name)) {
+			onApplicationStart();
+		}
+
+		if (structKeyExists(this, "rewriteParameter") and structKeyExists(url, this.rewriteParameter))
+			scriptname = url["#this.rewriteParameter#"];
+
+		var testname = right(scriptname, 1);
+
+		if (testname neq "/" and listlast(listlen(scriptname, ".")) lte 1)
+			scriptname = scriptname & "/";
+
+		testName = listlast(scriptname, "/");
+
+		if (listlen(testname, ".") lte 1)
+			scriptname = scriptname & this.standardDocument;
+
+        lock scope="Application" throwontimeout="true" timeout="30" type="readonly" {
+
+			if (Application.EasyXMS.testReRoute(scriptname))
+				Application.EasyXMS.setRoutes(this);
+        }
+		if (left(scriptname, 5) neq "/rest")
 		{
-			writeoutput(Application.EasyXMS.runRequest(script_name, strctUrl, strctForm));
+			writeoutput(Application.EasyXMS.runRequest(scriptname, strctUrl, strctForm));
 		}
 		else
 		{
-			Application.EasyXMS.runRestRequest(script_name, strctUrl, strctForm);
+			Application.EasyXMS.runRestRequest(scriptname, strctUrl, strctForm);
 		}
 
 	}

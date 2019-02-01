@@ -1,5 +1,15 @@
 component output="false" displayname="Basic Model" accessors="true"  extends="com.easyxms.helper.helper" {
 
+	$EasyController = NullValue();
+
+	function setController(any oController) {
+		$EasyController = oController;
+	}
+
+	function getController() {
+		return $EasyController;
+	}
+
 	struct function getForm() {
 		if (existsVar("__frm"))
 			return LocalScope["__frm"];
