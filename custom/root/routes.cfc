@@ -7,27 +7,35 @@
 component accessors=true output=false persistent=false extends="com.easyxms.routes" {
 
 	$EasyCustomRoutes = {
-		"/index.cfm" =	{
+		"default" =	{
 				"name" = "Homepage",
-				"config" = "custom.root.configuration.homepage.config",
-				"path" = "/index.cfm"
+				"config" = "custom.root.configuration.homepage.config"
 			},
-		"/news/index.cfm" =	{
-				"name" = "News",
-				"config" = "custom.root.configuration.news.config",
-				"path" = "/news/index.cfm"
-			},
-		"/admin/" =	{
-				"contains" = "/admin/",
+		"/admin/index.cfm" =	{
+				"contains" = "/admin",
 				"name" = "Administration",
-				"config" = "custom.root.configuration.admin.config",
-				"path" = ""
+				"config" = "com.easyxms.configuration.admin.config"
 			},
+		"/_tests/index.cfm" =	{
+				"contains" = "/_tests",
+				"name" = "Tests",
+				"config" = "custom.root.configuration._tests.config"
+			},
+		"/angular/" = {
+			"contains" = "/angular",
+			"name" = "Angular",
+			"config" = "angular.configuration.config"
+		},
+		"/rest/" = {
+			"contains" = "/rest",
+			"name" = "Rest",
+			"config" = "custom.root.configuration.homepage.config"
+		},
 		"*" =	{
+				"contains" = "*",
 				"component" = "custom.services.urls",
-				"name" = "",
-				"config" = "",
-				"path" = ""
+				"name" = "Return a Setup from DB",
+				"config" = "custom.root.configuration.config"
 			}
 
 	};
@@ -59,7 +67,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			init = true,
 			initwith = "init",
 			objects = {
-				"pluginsfolder" = "/obj/plugins"
+				"pluginsfolder" = "/custom/plugins"
 			}
 		},
 		/* Must be last Object*/

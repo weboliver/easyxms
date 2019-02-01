@@ -116,10 +116,6 @@ component output="false" displayname="easyXMS Basic Function" extends="simple"  
 		return Application.EasyXMS.getrouter();
 	}
 
-	struct function getConfig() {
-		return getrouter().getconfig();
-	}
-
 	struct function getsettings() {
 		return getconfig().getsettings();
 	}

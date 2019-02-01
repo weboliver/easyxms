@@ -3,4 +3,5 @@
 /.project
 /WEB-INF/
 /.settings/
-/angular
+/custom/_tests/
+/angular/

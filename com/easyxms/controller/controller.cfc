@@ -1,4 +1,14 @@
 component output="false" displayname="Basic Controller" accessors="true" extends="com.easyxms.helper.helper" {
+	
+	$EasyModel = NullValue();
+
+	function setModel(any oModel) {
+		$EasyModel = oModel;
+	}
+
+	function getModel() {
+		return $EasyModel;
+	}
 
 
 	function prepareModule() {

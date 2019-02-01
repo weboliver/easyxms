@@ -16,13 +16,13 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 		"initparameter" = 'init',
 		"initpassword" = 'now',
 		"initroute" = "routes",
-		"starttemplate" = '~v/index.cfm',
-		"views" = '/com/easyxms/views',
+		"starttemplate" = '/index.cfm',
+		"views" = '/com/easyxms/views/pages',
 		"templates" = '/com/easyxms/views/templates',
-		"404" = '~v/templates/errorpages/_404.cfm',
-		"403" = '~v/templates/errorpages/_403.cfm',
-		"500" = '~v/templates/errorpages/_500.cfm',
-		"show404" = false,
+		"404" = '~v/errorpages/_404.cfm',
+		"403" = '~v/errorpages/_403.cfm',
+		"500" = '~v/errorpages/_500.cfm',
+		"show404" = true,
 		"templateparameter" = "~t",
 		"viewparameter" = "~v",
 	};
@@ -39,19 +39,19 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 	};
 
 	javascript = {
-		head = ["~t/parts/_javascript.cfm"],
-		foot = []
-	};
-
-	stylesheets = {
-		head = ["~t/parts/_stylesheets.cfm"],
+		head = ["~t/parts/headers/javascript/standard.cfm"],
 		foot = []
 	};
 
 	metainformation = {
-		value = "~t/parts/_metainformation.cfm",
+		value = "~t/parts/headers/metadata/standard.cfm",
 		lang = "de",
 		charset="utf-8"
+	};
+
+	stylesheets = {
+		head = ["~t/parts/headers/stylesheets/standard.cfm"],
+		foot = []
 	};
 
 	controller = {

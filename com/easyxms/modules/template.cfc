@@ -11,6 +11,36 @@
 	<cfset $EasyTemplate = []>
 	<cfset $EasyCharset = "utf-8">
 	<cfset $EasyServices = $EasyXMS.getServices()>
+	<cfset $EasyConfig= NullValue()>
+	<cfset $EasyModel = NullValue()>
+	<cfset $EasyController = NullValue()>
+
+	<cfscript>
+
+		function setConfig(any oConfig) {
+			$EasyConfig = oConfig;
+		}
+
+		function getConfig() {
+			return $EasyConfig;
+		}
+
+		function setModel(any oModel) {
+			$EasyModel = oModel;
+		}
+
+		function getModel() {
+			return $EasyModel;
+		}
+
+		function setController(any oController) {
+			$EasyController = oController;
+		}
+
+		function getController() {
+			return $EasyController;
+		}
+	</cfscript>
 
 	<!--- Returns All Standard GlobalVariables --->
 	<cffunction name="getStandardElements">
