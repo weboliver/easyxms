@@ -19,7 +19,7 @@
 	                 value="application/json">
 	</cfhttp>
 
-	<cfdump var="#resultJSON#">
+	<cfdump var="#resultJSON#" />
 
 	<!---
 	<cfscript>

@@ -20,4 +20,6 @@ component accessors=true output=true persistent=false extends="custom.root.easyx
 	this.rewriteParameter = "__easypath";
 	this.standardDocument = "index.cfm";
 	this.ormSettings = {cfclocation="#expandPath('/com/easyxms/orm/')#", dialect="MYSQL"};
+	this.initparameter = "init";
+	this.initpassword = "now";
 }

@@ -22,8 +22,8 @@ component output="false" displayname="easyXMS System" extends="base" {
 		_EasyRequest = createObject("com.easyxms.application.request");
         return this;
 	}
-	
-	any public function createRequest() {
+
+	public function createRequest() {
 		return duplicate(_EasyRequest);
 	};
 
@@ -77,7 +77,7 @@ component output="false" displayname="easyXMS System" extends="base" {
 
     public function setRoutes(any obj) {
        	var routes = "";
-        lock scope="Application" throwontimeout="true" timeout="30" type="exclusive" {
+        lock scope="Application" throwontimeout="true" timeout="2" type="readonly" {
 
 			if (structKeyExists(obj, "customroutes"))
 				routes = createObject(obj.customroutes).init();
@@ -124,17 +124,8 @@ component output="false" displayname="easyXMS System" extends="base" {
     	return 	createObject(oConfig.getModelName());
     }
 
-    public boolean function testReRoute(string scriptname) {
+    public boolean function testReInit(string initPrm, string initPass) {
 
-        return testReInit(scriptname);
-            return false;
-    }
-
-    public boolean function testReInit(string scriptname) {
-
-        var config = getConfig(scriptname);
-        var initPrm = config.getInitParameter();
-        var initPass = config.getInitPassWord();
         if (structKeyExists(url, initPrm) and url[initPrm] is initPass)
             return true;
         else

@@ -13,8 +13,6 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 	routes = "com.easyxms.services.routes";
 
 	settings = {
-		"initparameter" = 'init',
-		"initpassword" = 'now',
 		"initroute" = "routes",
 		"starttemplate" = '/index.cfm',
 		"views" = '/com/easyxms/views/pages',
@@ -85,16 +83,6 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 	string function getViewPlaceHolder() {
 		return getsettings().viewparameter;
 	}
-
-    public string function getInitParameter() {
-
-        return getsettings()['initparameter'];
-    }
-
-    public string function getInitPassword() {
-
-        return getsettings()['initpassword'];
-    }
 
     public string function getInitRoute() {
 

@@ -29,7 +29,7 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 		"/rest/" = {
 			"contains" = "/rest",
 			"name" = "Rest",
-			"config" = "custom.root.configuration.homepage.config"
+			"config" = "rest.configuration.config"
 		},
 		"*" =	{
 				"contains" = "*",
