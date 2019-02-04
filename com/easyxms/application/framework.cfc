@@ -6,7 +6,7 @@
  **/
 component accessors=false output=true persistent=false {
 
-	function onApplicationStart() {
+	function InitEasyXMS() {
 		createobject("com.easyxms.application.easyinit").init(this);
 	}
 
@@ -23,7 +23,7 @@ component accessors=false output=true persistent=false {
 			strctUrl = Url;
 
 		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(this.initparameter, this.initpassword)) {
-			onApplicationStart();
+			InitEasyXMS();
 		}
 
 		if (structKeyExists(this, "rewriteParameter") and structKeyExists(url, this.rewriteParameter))
@@ -57,7 +57,7 @@ component accessors=false output=true persistent=false {
 	function onSessionStart() {
 
 		if (not structkeyExists(Application, "EasyXMS")) {
-			onApplicationStart();
+			InitEasyXMS();
 		}
 
 	    lock scope="Application" throwontimeout="true" timeout="30" type="readonly" {
