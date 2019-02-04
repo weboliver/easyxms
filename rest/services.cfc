@@ -12,4 +12,16 @@ component accessors=true output=false persistent=false rest="true" restpath="xms
 
 	}
 
+	remote struct function getController() httpmethod="GET" restpath="getController" produces="application/json" {
+
+		return Request.$EasyRequest.getConfig().getController();
+
+	}
+
+	remote struct function getModel() httpmethod="GET" restpath="getModel" produces="application/json" {
+
+		return Request.$EasyRequest.getConfig().getModel();
+
+	}
+
 }

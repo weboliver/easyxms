@@ -22,7 +22,7 @@ component accessors=false output=true persistent=false {
 		if (isdefined("Url"))
 			strctUrl = Url;
 
-		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(script_name)) {
+		if (this.debug is "true" or not structKeyExists(Application, "EasyXMS") or isSimpleValue(Application.EasyXMS) or structCount(Application.EasyXMS) is 0 or Application.EasyXMS.testReInit(this.initparameter, this.initpassword)) {
 			onApplicationStart();
 		}
 
@@ -39,11 +39,10 @@ component accessors=false output=true persistent=false {
 		if (listlen(testname, ".") lte 1)
 			scriptname = scriptname & this.standardDocument;
 
-        lock scope="Application" throwontimeout="true" timeout="30" type="readonly" {
-
-			if (Application.EasyXMS.testReRoute(scriptname))
-				Application.EasyXMS.setRoutes(this);
+        lock scope="Application" throwontimeout="true" timeout="1" type="readonly" {
+			Application.EasyXMS.setRoutes(this);
         }
+
 		if (left(scriptname, 5) neq "/rest")
 		{
 			writeoutput(Application.EasyXMS.runRequest(scriptname, strctUrl, strctForm));

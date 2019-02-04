@@ -1,4 +1,4 @@
-component output="false" displayname="Basic Controller" accessors="true" extends="com.easyxms.helper.helper" {
+component output="false" displayname="Basic Controller" accessors="true" extends="com.easyxms.application.base" {
 	
 	$EasyModel = NullValue();
 
