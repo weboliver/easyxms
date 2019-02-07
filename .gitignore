@@ -5,3 +5,4 @@
 /.settings/
 /custom/_tests/
 /angular/
+.vscode/launch.json
