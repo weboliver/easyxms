@@ -10,8 +10,8 @@
 	<cfset setLocale("de_DE")>
 	<cfset dt = "2016-04-03">
 	<cfset lsParseDatetime(dt)>
-	<h2>Zugriff auf REST Service: <cfoutput>http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getStandardEvents</cfoutput></h2>
-	<cfhttp url="http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getStandardEvents"
+	<h2>Zugriff auf REST Service: <cfoutput>http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getEvents</cfoutput></h2>
+	<cfhttp url="http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getEvents"
         method="get"
         result="resultJSON" >
 	    <cfhttpparam type="header"

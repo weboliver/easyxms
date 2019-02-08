@@ -15,6 +15,10 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 
 	init();
 
+	
+	events = ["beforeModule","onModule","onModuleEnd"];
+
+
 	controller = {
 		name = "rest.controller.controller"
 	};

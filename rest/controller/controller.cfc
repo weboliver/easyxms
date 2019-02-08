@@ -6,7 +6,15 @@
  **/
 component extends="com.easyxms.controller.controller" accessors=true output=false persistent=false {
 
-	function prepareModule() {
+	function beforeModule() {
+
+	}
+
+	function onModule() {
+
+	}
+
+	function onModuleEnd() {
 
 	}
 

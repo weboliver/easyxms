@@ -7,6 +7,7 @@ component output="false" displayname="Request" extends="com.easyxms.application.
     $EasyController = NullValue();
     $EasyTemplate = NullValue();
     $EasyResult = NullValue();
+    $EasyRequest = NullValue();
 
     function setTemplate(any oTemplate) {
 		$EasyTemplate = oTemplate;
@@ -15,7 +16,7 @@ component output="false" displayname="Request" extends="com.easyxms.application.
 	function getTemplate() {
 		return $EasyTemplate;
     }
-    
+
     function setConfig(any oConfig) {
 		$EasyConfig = oConfig;
 	}
@@ -39,7 +40,7 @@ component output="false" displayname="Request" extends="com.easyxms.application.
 	function getController() {
 		return $EasyController;
     }
-    
+
     function runRequest(string scriptname, struct param = {}, struct frm = {}) {
         var sResult = "";
 		var sFolder = getConfig().getsetting("views");
@@ -63,7 +64,11 @@ component output="false" displayname="Request" extends="com.easyxms.application.
             else
                 sResult = getTemplate().includetemplate(getConfig(scriptname).getstartTemplate());
         }
-        $EasyResult = sResult;
+		setResult(sResult);
+	}
+
+	string function setResult(string Result) {
+        $EasyResult = Result;
     }
 
     string function getResult() {
