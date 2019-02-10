@@ -5,6 +5,6 @@
 /.settings/
 /custom/_tests/
 /angular/
-.vscode/launch.json
+/.vscode/
 /_documentation
 node_modules
