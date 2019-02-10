@@ -7,3 +7,4 @@
 /angular/
 .vscode/launch.json
 /_documentation
+node_modules
