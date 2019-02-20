@@ -8,16 +8,19 @@
 
 component output="false" displayname="" extends="custom.root.configuration.config" {
 
-	template = {
-		name = "custom.root.modules._tests.tests"
+	module = {
+		name = "custom.root.modules._tests.module"
+	}
+	presenter = {
+		name = "custom.root.modules._tests.presenter"
 	};
 
 	controller = {
-		name = "custom.root.controller._tests.tests"
+		name = "custom.root.modules._tests.controller"
 	};
 
 	model = {
-		name = "custom.root.model._tests.tests"
+		name = "custom.root.modules._tests.model"
 	};
 
 }

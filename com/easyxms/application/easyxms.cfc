@@ -18,6 +18,7 @@ component output="false" displayname="easyXMS System" extends="base" {
         _EasyRoutes = EasyRoutes;
         _EasyPersistence = getRouter().getPersistentObjects();
 		_EasyServices = {};
+		_EasyComponents = {};
 		_EasyInstall = false;
 		_EasyRequest = createObject("com.easyxms.application.request");
         return this;
@@ -37,6 +38,10 @@ component output="false" displayname="easyXMS System" extends="base" {
 				_EasyServices[SingletonName] = 0;
 
     	}
+	}
+
+	public function setComponents() {
+
 	}
 
 	public function setInstall(boolean bInstall) {
@@ -70,23 +75,24 @@ component output="false" displayname="easyXMS System" extends="base" {
     	return _EasyServices[SingletonName];
     }
 
+
     public struct function getServices() {
 
     	return _EasyServices;
     }
 
+    public struct function getComponents() {
+
+    	return _EasyComponents;
+    }
+
     public function setRoutes(any obj) {
        	var routes = "";
-        lock scope="Application" throwontimeout="true" timeout="2" type="readonly" {
-
-			if (structKeyExists(obj, "customroutes"))
-				routes = createObject(obj.customroutes).init();
-			else
-				routes = createObject(obj.defaultroutes).init();
-
-			_EasyRoutes = routes;
-
-    	}
+		if (structKeyExists(obj, "customroutes"))
+			routes = createObject(obj.customroutes).init();
+		else
+			routes = createObject(obj.defaultroutes).init();
+		_EasyRoutes = routes;
     }
 
     public any function getRouter() {
@@ -114,9 +120,9 @@ component output="false" displayname="easyXMS System" extends="base" {
     	return 	createObject(oConfig.getControllerName());
     }
 
-	public any function getTemplate(any oConfig, string scriptname) {
+	public any function getPresenter(any oConfig, string scriptname) {
 
-    	return 	createObject(oConfig.getTemplateName(scriptname));
+    	return 	createObject(oConfig.getPresenterName(scriptname));
     }
 
     public any function getModel(any oConfig, string scriptname) {
@@ -137,12 +143,12 @@ component output="false" displayname="easyXMS System" extends="base" {
 		var oConfig = getConfig(scriptname);
 		var oController = getController(oConfig, scriptname);
 		var oModel = getModel(oConfig, scriptname);
+		var oPresenter = getPresenter(oConfig, scriptname);
 		var sResult = "";
+		oController.setModel(oModel);
 		oRequest.setConfig(oConfig);
 		oRequest.setController(oController);
-		oRequest.setModel(oModel);
-		var oTemplate = getTemplate(oConfig, scriptname);
-		oRequest.setTemplate(oTemplate);
+		oRequest.setPresenter(oPresenter);
 		oRequest.runRequest(scriptname, param, frm);
 		return oRequest.getResult();
 	}
@@ -153,12 +159,11 @@ component output="false" displayname="easyXMS System" extends="base" {
 		var oController = getController(oConfig, scriptname);
 		var oModel = getModel(oConfig, scriptname);
 		var sResult = "";
+		oController.setModel(oModel);
 		oRequest.setConfig(oConfig);
 		oRequest.setController(oController);
-		oRequest.setModel(oModel);
-		oController.setModel(oModel);
 		oRequest.runRequest(scriptname, param, frm);
-		Request.$EasyRequest = oRequest;
+		return oRequest;
 	}
 
 	public function endRequest() {

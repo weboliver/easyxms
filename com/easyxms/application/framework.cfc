@@ -39,17 +39,9 @@ component accessors=false output=true persistent=false {
 		if (listlen(testname, ".") lte 1)
 			scriptname = scriptname & this.standardDocument;
 
-        lock scope="Application" throwontimeout="true" timeout="1" type="readonly" {
-			Application.EasyXMS.setRoutes(this);
-        }
-
 		if (left(scriptname, 5) neq "/rest")
 		{
 			writeoutput(Application.EasyXMS.runRequest(scriptname, strctUrl, strctForm));
-		}
-		else
-		{
-			Application.EasyXMS.runRestRequest(scriptname, strctUrl, strctForm);
 		}
 
 	}

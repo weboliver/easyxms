@@ -8,16 +8,20 @@
 
 component output="false" displayname="" extends="custom.root.configuration.config" {
 
-	template = {
-		name = "custom.root.modules.homepage.home"
+	module = {
+		name = "custom.root.modules.homepage.module"
+	}
+
+	presenter = {
+		name = "custom.root.modules.homepage.presenter"
 	};
 
 	controller = {
-		name = "custom.root.controller.homepage.home"
+		name = "custom.root.modules.homepage.controller"
 	};
 
 	model = {
-		name = "custom.root.model.homepage.home"
+		name = "custom.root.modules.homepage.model"
 	};
 
 }

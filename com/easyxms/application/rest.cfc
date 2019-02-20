@@ -1,6 +1,14 @@
 component output="false" displayname="Request" extends="com.easyxms.application.base"  {
 
-	$EasyRequest = Request.$EasyRequest;
-	$EasyResult = $EasyRequest.getResult();
+	init();
+
+	function init() {
+
+		$EasyRequest = Application.EasyXMS.runRestRequest(cgi.request_url, url, form);
+	}
+
+	function getEasyRequest() {
+		return $EasyRequest;
+	}
 
 }

@@ -44,11 +44,6 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 
 	$EasyServices =
 	{
-		"NavigationObject" = {
-			object="com.easyxms.services.navigation",
-			init=true,
-			initwith=""
-		},
 		"GlobalConst" = {
 			object="com.easyxms.services.const",
 			init=true,
@@ -61,6 +56,20 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			objects = {
 				"easyxms"="MYSQL"
 			}
+		}, /* Must be last Object*/
+		"Installer" = {
+			object="com.easyxms.services.installer",
+			init=true,
+			initwith="init"
+		}
+	};
+
+	$EasyComponents =
+	{
+		"NavigationObject" = {
+			object="com.easyxms.components.navigation",
+			init=true,
+			initwith=""
 		},
 		"PLUGINS" = {
 			object= "com.easyxms.services.pluginsloader",
@@ -69,12 +78,6 @@ component accessors=true output=false persistent=false extends="com.easyxms.rout
 			objects = {
 				"pluginsfolder" = "/custom/plugins"
 			}
-		},
-		/* Must be last Object*/
-		"Installer" = {
-			object="com.easyxms.services.installer",
-			init=true,
-			initwith="init"
 		}
 	};
 }

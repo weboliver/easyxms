@@ -5,16 +5,16 @@ component output="false" displayname="Request" extends="com.easyxms.application.
     $EasyConfig = NullValue();
     $EasyModel = NullValue();
     $EasyController = NullValue();
-    $EasyTemplate = NullValue();
+    $EasyPresenter = NullValue();
     $EasyResult = NullValue();
-    $EasyRequest = NullValue();
+    $EasyRequest = this;
 
-    function setTemplate(any oTemplate) {
-		$EasyTemplate = oTemplate;
+    function setPresenter(any oPresenter) {
+		$EasyPresenter = oPresenter;
 	}
 
-	function getTemplate() {
-		return $EasyTemplate;
+	function getPresenter() {
+		return $EasyPresenter;
     }
 
     function setConfig(any oConfig) {
@@ -23,14 +23,6 @@ component output="false" displayname="Request" extends="com.easyxms.application.
 
 	function getConfig() {
 		return $EasyConfig;
-	}
-
-	function setModel(any oModel) {
-		$EasyModel = oModel;
-	}
-
-	function getModel() {
-		return $EasyModel;
 	}
 
 	function setController(any oController) {
@@ -45,24 +37,21 @@ component output="false" displayname="Request" extends="com.easyxms.application.
         var sResult = "";
 		var sFolder = getConfig().getsetting("views");
 		var sFileToInclude = sFolder & scriptname;
-		getModel().setVar("__param", param);
-		getModel().setVar("__frm", frm);
 		var Events = getConfig().getevents();
 		for (var e in Events) {
 			evaluate("getController().#e#()");
         }
 
-        if (not isNull(getTemplate())) {
+        if (not isNull(getPresenter())) {
 
-            getTemplate().setModel(getModel());
-            getTemplate().setController(getController());
-            getTemplate().setConfig(getConfig());
+            getPresenter().setConfig(getConfig());
+            getPresenter().setData(getController().getAll());
             if (fileExists(expandpath(sFileToInclude)))
-                sResult = getTemplate().includetemplate(sFileToInclude);
+                sResult = getPresenter().includetemplate(sFileToInclude);
             else if (getconfig(scriptname).getsetting("show404"))
-                sResult = getTemplate().includetemplate(getConfig(scriptname).get404Template());
+                sResult = getPresenter().includetemplate(getConfig(scriptname).get404Template());
             else
-                sResult = getTemplate().includetemplate(getConfig(scriptname).getstartTemplate());
+                sResult = getPresenter().includetemplate(getConfig(scriptname).getstartTemplate());
         }
 		setResult(sResult);
 	}
