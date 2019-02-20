@@ -8,6 +8,7 @@ component output="false" displayname="Request" extends="com.easyxms.application.
     $EasyPresenter = NullValue();
     $EasyResult = NullValue();
     $EasyRequest = this;
+    $EasyData = structNew();
 
     function setPresenter(any oPresenter) {
 		$EasyPresenter = oPresenter;
@@ -19,6 +20,10 @@ component output="false" displayname="Request" extends="com.easyxms.application.
 
     function setConfig(any oConfig) {
 		$EasyConfig = oConfig;
+	}
+
+	function setData(any value) {
+		$EasyData = value;
 	}
 
 	function getConfig() {
@@ -52,8 +57,10 @@ component output="false" displayname="Request" extends="com.easyxms.application.
                 sResult = getPresenter().includetemplate(getConfig(scriptname).get404Template());
             else
                 sResult = getPresenter().includetemplate(getConfig(scriptname).getstartTemplate());
+			setResult(sResult);
         }
-		setResult(sResult);
+        else
+        	setData(getController().getAll());
 	}
 
 	string function setResult(string Result) {
