@@ -1,5 +1,5 @@
 /**
- * home
+ * admin home
  *
  * @author Oliver
  * @date 25.03.16
