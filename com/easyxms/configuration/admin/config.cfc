@@ -37,16 +37,16 @@ component output="false" displayname="" extends="com.easyxms.configuration.easya
 		foot = []
 	};
 
-	template = {
-		name = "com.easyxms.modules.admin.admin"
+	presenter = {
+		name = "com.easyxms.modules.admin.presenter"
 	};
 
 	controller = {
-		name = "com.easyxms.controller.admin.admin"
+		name = "com.easyxms.modules.admin.controller"
 	};
 
 	model = {
-		name = "com.easyxms.model.admin.admin"
+		name = "com.easyxms.modules.admin.model"
 	};
 
 }

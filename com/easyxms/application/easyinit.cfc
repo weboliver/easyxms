@@ -13,13 +13,16 @@ component accessors=true output=false persistent=false {
 			routes = createObject(obj.customroutes);
 		else
 			routes = createObject(obj.defaultroutes);
-        lock scope="Application" throwontimeout="true" timeout="30" type="exclusive" {
+
+		lock scope="Application" throwontimeout="true" timeout="30" type="exclusive" {
         	// ORMReload();
 			Application.EasyXMS = 0;
 			Application.EasyXMS = createObject('com.easyxms.application.easyxms').init(routes);
 			Application.EasyXMS.setServices();
-			if (structKeyExists(obj, "install"))
+			Application.EasyXMS.setRoutes(obj);
+			if (structKeyExists(obj, "install") and obj.install)
 				Application.EasyXMS.setInstall(obj.install);
-    	}
+			}
+			restInitApplication( dirPath=expandPath('/com/easyxms/rest'),serviceMapping='/easy');
     }
 }

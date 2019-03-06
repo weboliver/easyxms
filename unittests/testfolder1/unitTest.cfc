@@ -1,7 +1,7 @@
 <cfcomponent extends="mxunit.framework.TestCase">
 
 	<cffunction name="testifRestWorks">
-		<cfhttp url="http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getStandardEvents"
+		<cfhttp url="http://#cgi.server_name#:#cgi.SERVER_PORT#/rest/easy/xms/getEvents"
 	        method="get"
 	        result="resultJSON">
 		    <cfhttpparam type="header"

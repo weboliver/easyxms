@@ -159,7 +159,8 @@ component accessors=true output=false persistent=false extends="com.easyxms.appl
 			strctData = {};
 
 			strctData.USER_Name = "ADMIN";
-			strctData.USER_Password = hash("ADMIN");
+			//ADMIN is the default password. User has to change that
+			strctData.USER_Password = encrypt("ADMIN", hash(strctData.USER_Name), "DESEDE");
 			var strctAtom = {title=strctData.USER_Name, short=strctData.USER_Name, text=strctData.USER_Name};
 			getDB().addUniqueElement("USERS", strctData, 1, 2, strctAtom);
 

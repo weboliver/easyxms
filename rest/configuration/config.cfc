@@ -15,16 +15,18 @@ component output="false" displayname="" extends="com.easyxms.configuration.easyc
 
 	init();
 
-	
 	events = ["beforeModule","onModule","onModuleEnd"];
 
+	module = {
+		name = "rest.modules.standard.module"
+	};
 
 	controller = {
-		name = "rest.controller.controller"
+		name = "rest.modules.standard.controller"
 	};
 
 	model = {
-		name = "rest.model.model"
+		name = "rest.modules.standard.model"
 	};
 
 }

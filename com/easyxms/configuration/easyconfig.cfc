@@ -26,7 +26,7 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 	};
 
 
-	events = ["prepareModule","prepareTemplate","onShow","onEnd"];
+	events = ["prepareModule","preparePresenter","onShow","onEnd"];
 
 	customsettings = {
 
@@ -60,12 +60,12 @@ component output="false" displayname="Configuration Loader" accessors="true"  {
 		name = "com.easyxms.model.model"
 	};
 
-	template = {
-		name = "com.easyxms.modules.template"
+	presenter = {
+		name = "com.easyxms.presenter.presenter"
 	};
 
-	string function getTemplateName() {
-		return template.name;
+	string function getPresenterName() {
+		return presenter.name;
 	}
 
 	string function getControllerName() {
