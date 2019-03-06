@@ -32,3 +32,13 @@ Under Language Compiler set Null Support to Full support
 # MXUnit
 
 The complete MXUnit is here: https://github.com/mxunit/mxunit
+
+#PLAN so far
+
+1. Create a headless REST API
+   - a
+   - b
+   - c
+2. Create a angular 7 based Administration
+3. Create a react based Administration
+
