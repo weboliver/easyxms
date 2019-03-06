@@ -7,6 +7,10 @@
 	<@$EasyStyleSheetFooter@>
 </head>
 <body>
+
+	<cfset result = ORMExecuteQuery("FROM USERS")>
+
+	<cfdump var="#result#">
 	<cfset setLocale("de_DE")>
 	<cfset dt = "2016-04-03">
 	<cfset lsParseDatetime(dt)>

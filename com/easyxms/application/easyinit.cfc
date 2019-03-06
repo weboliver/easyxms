@@ -22,6 +22,7 @@ component accessors=true output=false persistent=false {
 			Application.EasyXMS.setRoutes(obj);
 			if (structKeyExists(obj, "install") and obj.install)
 				Application.EasyXMS.setInstall(obj.install);
-    	}
+			}
+			restInitApplication( dirPath=expandPath('/com/easyxms/rest'),serviceMapping='/easy');
     }
 }

@@ -8,3 +8,4 @@
 /.vscode/
 /_documentation
 node_modules
+/test/
